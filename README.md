@@ -8,7 +8,7 @@ The tournament consists of:
 - 8 predefined teams split into two groups of 4
 - Group stage with round-robin matches
 - Knockout stage with semifinals and final
-- Automatic standings calculation based on points and other criteria
+- Automatic standings calculation based on points and correct answers
 
 ## Features
 
@@ -21,21 +21,20 @@ The tournament consists of:
 - Standings determined by:
   1. Points
   2. Head-to-head results
-  3. Answer difference (Correct - Wrong)
-  4. Total correct answers
+  3. Total correct answers
 
 ### Knockout Stage
 - Semi-finals:
   - 1st Builder Group vs 2nd Explorer Group
   - 1st Explorer Group vs 2nd Builder Group
 - Final match between semi-final winners
+- Interactive score input system
 - Automatic winner determination
 
 ### Data Management
 - Automatic match generation
 - Real-time standings updates
 - Score tracking and validation
-- Tournament progress persistence
 
 ## Tech Stack
 
@@ -70,16 +69,43 @@ http://localhost:3000
 
 The application can be deployed using Vercel:
 
-1. Push your code to GitHub
-2. Connect your GitHub repository to Vercel
-3. Vercel will automatically deploy your application
-4. Each push to the main branch will trigger a new deployment
+# Quiz Tournament App
 
-You can also build the application locally:
+A React application for managing quiz tournaments between teams.
+
+## Testing Strategy
+
+The application uses three types of tests:
+
+1. **Unit Tests** (`src/__tests__/unit/`)
+   - Tests individual functions like `sortTeams`
+   - Focus on pure logic and sorting algorithms
+
+2. **Component Tests** (`src/__tests__/components/`)
+   - Test React components in isolation
+   - Verify UI elements and user interactions
+   - Use React Testing Library for DOM queries
+
+3. **Integration Tests** (`src/__tests__/integration/`)
+   - Test complete tournament flows
+   - Verify state management and context updates
+   - Use React Testing Library Hooks for testing custom hooks
+
+## Test Coverage
+
+Key functionality covered by tests:
+- Team sorting and standings calculation
+- Group stage completion
+- Knockout stage generation
+- Tournament completion flow
+- UI navigation and display
+
+## Running Tests
 
 ```bash
-1. npm run build
-2. Serve the built files using your preferred static file server (e.g., serve, nginx, etc.)
-```
+# Run all tests
+npm test
 
-This creates a `build` folder with optimized production files.
+# Run tests with coverage
+npm run test:coverage
+```

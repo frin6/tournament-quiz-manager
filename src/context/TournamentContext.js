@@ -19,19 +19,19 @@ const INITIAL_TEAMS = [
 // Predefined match results
 const INITIAL_MATCHES = {
   A: [
-    // Builder Group matches (all combinations)
+    // Builder Group matches
     {
       id: 'A-0-1',
-      team1: INITIAL_TEAMS[0],
-      team2: INITIAL_TEAMS[1],
-      team1Score: null,
-      team2Score: null,
+      team1: INITIAL_TEAMS[0], // Manuel
+      team2: INITIAL_TEAMS[1], // Matteo
+      team1Score: null,  // Example score
+      team2Score: null,  // Example score
       isCompleted: false
     },
     {
       id: 'A-0-2',
-      team1: INITIAL_TEAMS[0],
-      team2: INITIAL_TEAMS[2],
+      team1: INITIAL_TEAMS[0], // Manuel
+      team2: INITIAL_TEAMS[2], // Giacomo
       team1Score: null,
       team2Score: null,
       isCompleted: false
@@ -70,11 +70,11 @@ const INITIAL_MATCHES = {
     }
   ],
   B: [
-    // Explorer Group matches (all combinations)
+    // Explorer Group matches
     {
       id: 'B-0-1',
-      team1: INITIAL_TEAMS[4],
-      team2: INITIAL_TEAMS[5],
+      team1: INITIAL_TEAMS[4], // Federico
+      team2: INITIAL_TEAMS[5], // Davide
       team1Score: null,
       team2Score: null,
       isCompleted: false
@@ -202,85 +202,64 @@ export function TournamentProvider({ children }) {
   }, [knockoutMatches]);
 
   const updateMatchScore = (groupId, matchId, team1Score, team2Score) => {
+    // Validate scores
+    if (team1Score < 0 || team2Score < 0 || !Number.isInteger(team1Score) || !Number.isInteger(team2Score)) {
+      return; // Don't update if scores are invalid
+    }
+
     setMatches(prev => {
-      const updatedMatches = {
-        ...prev,
-        [groupId]: prev[groupId].map(match => {
-          if (match.id === matchId) {
-            return {
-              ...match,
-              team1Score,
-              team2Score,
-              isCompleted: true
-            };
-          }
-          return match;
-        })
+      const updatedMatches = { ...prev };
+      const matchIndex = updatedMatches[groupId].findIndex(m => m.id === matchId);
+      const match = updatedMatches[groupId][matchIndex];
+
+      // Don't update if match is already completed
+      if (match.isCompleted) {
+        return prev;
+      }
+
+      // Create a new match object to ensure proper state updates
+      const updatedMatch = {
+        ...match,
+        team1Score,
+        team2Score,
+        isCompleted: true
       };
-      
-      const match = prev[groupId].find(m => m.id === matchId);
-      if (match) {
-        setGroups(prevGroups => {
-          const updatedGroup = prevGroups[groupId].map(team => {
-            if (team.id === match.team1.id) {
-              return {
-                ...team,
-                points: team.points + (team1Score > team2Score ? 3 : team1Score === team2Score ? 1 : 0),
-                correctAnswers: team.correctAnswers + team1Score,
-                wrongAnswers: team.wrongAnswers + team2Score,
-                matchesPlayed: team.matchesPlayed + 1
-              };
-            }
-            if (team.id === match.team2.id) {
-              return {
-                ...team,
-                points: team.points + (team2Score > team1Score ? 3 : team2Score === team1Score ? 1 : 0),
-                correctAnswers: team.correctAnswers + team2Score,
-                wrongAnswers: team.wrongAnswers + team1Score,
-                matchesPlayed: team.matchesPlayed + 1
-              };
-            }
-            return team;
-          });
-          return { ...prevGroups, [groupId]: updatedGroup };
-        });
-      }
-      
-      return updatedMatches;
-    });
-  };
 
-  const sortTeams = (groupTeams, groupMatches) => {
-    return [...groupTeams].sort((a, b) => {
-      // Prima confronta i punti
-      if (b.points !== a.points) {
-        return b.points - a.points;
-      }
+      // Create a new array for the group's matches
+      updatedMatches[groupId] = [
+        ...updatedMatches[groupId].slice(0, matchIndex),
+        updatedMatch,
+        ...updatedMatches[groupId].slice(matchIndex + 1)
+      ];
 
-      // Se i punti sono uguali, controlla lo scontro diretto
-      const directMatch = groupMatches.find(match => 
-        (match.team1.id === a.id && match.team2.id === b.id) ||
-        (match.team1.id === b.id && match.team2.id === a.id)
-      );
+      // Update team stats
+      setGroups(prevGroups => {
+        const newGroups = { ...prevGroups };
+        const team1 = newGroups[groupId].find(t => t.id === match.team1.id);
+        const team2 = newGroups[groupId].find(t => t.id === match.team2.id);
 
-      if (directMatch && directMatch.isCompleted) {
-        const aIsTeam1 = directMatch.team1.id === a.id;
-        const aScore = aIsTeam1 ? directMatch.team1Score : directMatch.team2Score;
-        const bScore = aIsTeam1 ? directMatch.team2Score : directMatch.team1Score;
-        if (aScore !== bScore) {
-          return bScore - aScore;
+        // Update matches played
+        team1.matchesPlayed += 1;
+        team2.matchesPlayed += 1;
+
+        // Update correct answers
+        team1.correctAnswers += team1Score;
+        team2.correctAnswers += team2Score;
+
+        // Update points
+        if (team1Score > team2Score) {
+          team1.points += 3;
+        } else if (team2Score > team1Score) {
+          team2.points += 3;
+        } else {
+          team1.points += 1;
+          team2.points += 1;
         }
-      }
 
-      // Se lo scontro diretto è pari o non c'è, guarda la differenza reti
-      const aDiff = a.correctAnswers - a.wrongAnswers;
-      const bDiff = b.correctAnswers - b.wrongAnswers;
-      if (bDiff !== aDiff) {
-        return bDiff - aDiff;
-      }
+        return newGroups;
+      });
 
-      // Se anche la differenza reti è uguale, guarda le risposte corrette totali
-      return b.correctAnswers - a.correctAnswers;
+      return updatedMatches;
     });
   };
 
@@ -418,4 +397,27 @@ export function TournamentProvider({ children }) {
 
 export function useTournament() {
   return useContext(TournamentContext);
-} 
+}
+
+export const sortTeams = (teams, matches) => {
+  return [...teams].sort((a, b) => {
+    if (b.points !== a.points) {
+      return b.points - a.points;
+    }
+
+    const headToHead = matches.find(match => 
+      (match.team1.id === a.id && match.team2.id === b.id) ||
+      (match.team1.id === b.id && match.team2.id === a.id)
+    );
+
+    if (headToHead && headToHead.isCompleted) {
+      const aScore = headToHead.team1.id === a.id ? headToHead.team1Score : headToHead.team2Score;
+      const bScore = headToHead.team1.id === b.id ? headToHead.team1Score : headToHead.team2Score;
+      if (aScore !== bScore) {
+        return bScore - aScore;
+      }
+    }
+
+    return b.correctAnswers - a.correctAnswers;
+  });
+}; 

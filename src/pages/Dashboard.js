@@ -6,11 +6,9 @@ function Dashboard() {
     groups, 
     matches, 
     knockoutMatches, 
-    updateMatchScore, 
     updateKnockoutMatch, 
     generateKnockoutStage
   } = useTournament();
-  const [groupScores, setGroupScores] = useState({});
   const [knockoutScores, setKnockoutScores] = useState({});
   const [activeSection, setActiveSection] = useState('teams'); // teams, groups, or knockout
 
@@ -24,26 +22,6 @@ function Dashboard() {
       generateKnockoutStage();
     }
   }, [matches, knockoutMatches, generateKnockoutStage]);
-
-  // Group stage handlers
-  const handleGroupScoreChange = (groupId, matchId, team, score) => {
-    const matchKey = `${groupId}-${matchId}`;
-    setGroupScores(prev => ({
-      ...prev,
-      [matchKey]: {
-        ...prev[matchKey],
-        [team]: score
-      }
-    }));
-  };
-
-  const handleGroupConfirmMatch = (groupId, matchId) => {
-    const matchKey = `${groupId}-${matchId}`;
-    const matchScores = groupScores[matchKey];
-    if (matchScores?.team1 != null && matchScores?.team2 != null) {
-      updateMatchScore(groupId, matchId, parseInt(matchScores.team1), parseInt(matchScores.team2));
-    }
-  };
 
   // Knockout stage handlers
   const handleKnockoutScoreChange = (matchId, team, score) => {
@@ -87,15 +65,19 @@ function Dashboard() {
 
   const renderMatch = (match, groupId) => (
     <div key={match.id} style={styles.match}>
-      <span style={styles.teamName}>{match.team1.name}</span>
+      <div style={styles.teamContainerLeft}>
+        <span style={styles.teamName}>{match.team1.name}</span>
+      </div>
       <span style={styles.score}>
         {match.isCompleted ? match.team1Score : '-'}
       </span>
-      <span>vs</span>
+      <span style={styles.vs}>vs</span>
       <span style={styles.score}>
         {match.isCompleted ? match.team2Score : '-'}
       </span>
-      <span style={styles.teamName}>{match.team2.name}</span>
+      <div style={styles.teamContainerRight}>
+        <span style={styles.teamName}>{match.team2.name}</span>
+      </div>
     </div>
   );
 
@@ -142,12 +124,10 @@ function Dashboard() {
             <table style={styles.table}>
               <thead>
                 <tr>
-                  <th>Team</th>
-                  <th>P</th>
-                  <th>M</th>
-                  <th>CA</th>
-                  <th>WA</th>
-                  <th>Diff</th>
+                  <th style={styles.teamColumn}>Team</th>
+                  <th style={styles.dataColumn}>Points</th>
+                  <th style={styles.dataColumn}>Matches</th>
+                  <th style={styles.dataColumn}>Correct Answers</th>
                 </tr>
               </thead>
               <tbody>
@@ -155,12 +135,10 @@ function Dashboard() {
                   .sort((a, b) => b.points - a.points)
                   .map(team => (
                     <tr key={team.id}>
-                      <td>{team.name}</td>
-                      <td>{team.matchesPlayed > 0 ? team.points : '-'}</td>
-                      <td>{team.matchesPlayed > 0 ? team.matchesPlayed : '-'}</td>
-                      <td>{team.matchesPlayed > 0 ? team.correctAnswers : '-'}</td>
-                      <td>{team.matchesPlayed > 0 ? team.wrongAnswers : '-'}</td>
-                      <td>{team.matchesPlayed > 0 ? (team.correctAnswers - team.wrongAnswers) : '-'}</td>
+                      <td style={styles.teamColumn}>{team.name}</td>
+                      <td style={styles.dataColumn}>{team.matchesPlayed > 0 ? team.points : '-'}</td>
+                      <td style={styles.dataColumn}>{team.matchesPlayed > 0 ? team.matchesPlayed : '-'}</td>
+                      <td style={styles.dataColumn}>{team.matchesPlayed > 0 ? team.correctAnswers : '-'}</td>
                     </tr>
                   ))}
               </tbody>
@@ -286,20 +264,35 @@ const styles = {
   match: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
+    justifyContent: 'center',
+    gap: '5px',
     marginBottom: '20px',
     padding: '15px',
     backgroundColor: '#f8f9fa',
     borderRadius: '8px'
   },
+  teamContainerLeft: {
+    width: '120px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  teamContainerRight: {
+    width: '120px',
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
   teamName: {
-    minWidth: '120px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+  },
+  vs: {
+    padding: '0 5px',
+    color: '#666',
   },
   score: {
     fontSize: '18px',
     fontWeight: 'bold',
-    padding: '0 10px'
+    width: '20px',
+    textAlign: 'center',
   },
   scoreInput: {
     width: '50px',
@@ -331,10 +324,23 @@ const styles = {
     backgroundColor: 'white',
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
   },
-  'th, td': {
+  teamColumn: {
+    width: '40%',
+    textAlign: 'center',
+    padding: '12px 8px',
+    borderBottom: '1px solid #eee'
+  },
+  dataColumn: {
+    width: '20%',
+    textAlign: 'center',
+    padding: '12px 8px',
+    borderBottom: '1px solid #eee'
+  },
+  'th': {
     padding: '12px 8px',
     textAlign: 'center',
-    borderBottom: '1px solid #eee'
+    borderBottom: '1px solid #eee',
+    width: '20%'
   },
   winner: {
     textAlign: 'center',
