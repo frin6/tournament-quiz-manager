@@ -46,36 +46,6 @@ The tournament consists of:
 - Local Storage for data persistence
 - JavaScript ES6+
 
-## Local Development
-
-1. Clone the repository:
-```bash
-git clone https://github.com/frin6/tournament-quiz-manager.git
-cd tournament-quiz-manager
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm start
-```
-
-4. Open your browser and navigate to:
-http://localhost:3000
-
-## Deployment
-
-The application is configured for deployment on Vercel.com. The application is deployed on Vercel.com at https://tournament-quiz-manager.vercel.app/.
-
-
-# Quiz Tournament App
-
-A React application for managing quiz tournaments between teams.
-
 ## Testing Strategy
 
 The application uses three types of tests:
@@ -112,3 +82,30 @@ npm test
 # Run tests with coverage
 npm run test:coverage
 ```
+
+## Local Development
+
+1. Clone the repository:
+```bash
+git clone https://github.com/frin6/tournament-quiz-manager.git
+cd tournament-quiz-manager
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm start
+```
+
+4. Open your browser and navigate to:
+http://localhost:3000
+
+## Deployment
+
+The application is configured for deployment on Vercel.com. The application is deployed on Vercel.com at https://tournament-quiz-manager.vercel.app/.
+
+
