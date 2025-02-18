@@ -2,6 +2,8 @@
 
 A React-based tournament management system designed to handle a competition between two groups (Builder and Explorer) with group stages and knockout rounds. The system manages matches, calculates standings, and determines the tournament winner through semifinals and finals.
 
+The real objective of the repository was to test actual capabilities of React, CSS, JavaScript and Vercel.
+
 ## Summary
 
 The tournament consists of:
@@ -67,7 +69,8 @@ http://localhost:3000
 
 ## Deployment
 
-The application can be deployed using Vercel:
+The application is configured for deployment on Vercel.com. The application is deployed on Vercel.com at https://tournament-quiz-manager.vercel.app/.
+
 
 # Quiz Tournament App
 
