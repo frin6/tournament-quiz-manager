@@ -48,14 +48,20 @@ The tournament consists of:
 ## Local Development
 
 1. Clone the repository:
+```bash
 git clone https://github.com/frin6/tournament-quiz-manager.git
 cd tournament-quiz-manager
+```
 
 2. Install dependencies:
+```bash
 npm install
+```
 
 3. Start the development server:
+```bash
 npm start
+```
 
 4. Open your browser and navigate to:
 http://localhost:3000
@@ -71,7 +77,9 @@ The application can be deployed using Vercel:
 
 You can also build the application locally:
 
+```bash
 1. npm run build
 2. Serve the built files using your preferred static file server (e.g., serve, nginx, etc.)
+```
 
 This creates a `build` folder with optimized production files.
