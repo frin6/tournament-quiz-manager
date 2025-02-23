@@ -65,18 +65,23 @@ function Dashboard() {
 
   const renderMatch = (match, groupId) => (
     <div key={match.id} style={styles.match}>
-      <div style={styles.teamContainerLeft}>
-        <span style={styles.teamName}>{match.team1.name}</span>
+      <div style={styles.matchDateTime}>
+        {match.date && new Date(match.date).toLocaleDateString('en-GB')} - {match.time}
       </div>
-      <span style={styles.score}>
-        {match.isCompleted ? match.team1Score : '-'}
-      </span>
-      <span style={styles.vs}>vs</span>
-      <span style={styles.score}>
-        {match.isCompleted ? match.team2Score : '-'}
-      </span>
-      <div style={styles.teamContainerRight}>
-        <span style={styles.teamName}>{match.team2.name}</span>
+      <div style={styles.matchContent}>
+        <div style={styles.teamContainerLeft}>
+          <span style={styles.teamName}>{match.team1.name}</span>
+        </div>
+        <span style={styles.score}>
+          {match.isCompleted ? match.team1Score : '-'}
+        </span>
+        <span style={styles.vs}>vs</span>
+        <span style={styles.score}>
+          {match.isCompleted ? match.team2Score : '-'}
+        </span>
+        <div style={styles.teamContainerRight}>
+          <span style={styles.teamName}>{match.team2.name}</span>
+        </div>
       </div>
     </div>
   );
@@ -263,9 +268,8 @@ const styles = {
   },
   match: {
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: '5px',
     marginBottom: '20px',
     padding: '15px',
     backgroundColor: '#f8f9fa',
@@ -371,7 +375,18 @@ const styles = {
     textAlign: 'center',
     fontSize: '18px',
     color: '#666'
-  }
+  },
+  matchDateTime: {
+    fontSize: '14px',
+    color: '#666',
+    marginBottom: '5px'
+  },
+  matchContent: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '5px',
+  },
 };
 
 export default Dashboard; 

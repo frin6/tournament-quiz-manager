@@ -13,7 +13,9 @@ describe('sortTeams', () => {
       team2: { id: 2 },
       team1Score: 2,
       team2Score: 1,
-      isCompleted: true
+      isCompleted: true,
+      date: new Date('2025-02-25'),
+      time: '13:45'
     }
   ];
 

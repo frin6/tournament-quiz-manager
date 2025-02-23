@@ -2,6 +2,26 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 
 const TournamentContext = createContext();
 
+// Helper function to generate match dates
+export const generateMatchDates = (startDate) => {
+  const dates = [];
+  // Use provided date or default to Feb 25, 2025
+  let currentDate = startDate instanceof Date ? new Date(startDate) : new Date('2025-02-25');
+
+  // Dates to skip (in addition to weekends)
+  const skipDates = ['2025-03-03', '2025-03-04'];
+
+  while (dates.length < 12) { // 6 matches per group
+    // Skip weekends and specific dates
+    const dateString = currentDate.toISOString().split('T')[0];
+    if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6 && !skipDates.includes(dateString)) {
+      dates.push(new Date(currentDate));
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  return dates;
+};
+
 // Predefined teams
 const INITIAL_TEAMS = [
   // Builder Group (A)
@@ -16,17 +36,20 @@ const INITIAL_TEAMS = [
   { id: 8, name: "Daniele", points: 0, correctAnswers: 0, wrongAnswers: 0, matchesPlayed: 0 },
 ];
 
-// Predefined match results
+// Generate match dates starting from February 25, 2025
+const matchDates = generateMatchDates(new Date('2025-02-25'));
+
 const INITIAL_MATCHES = {
   A: [
-    // Builder Group matches
     {
       id: 'A-0-1',
       team1: INITIAL_TEAMS[0], // Manuel
       team2: INITIAL_TEAMS[1], // Matteo
-      team1Score: null,  // Example score
-      team2Score: null,  // Example score
-      isCompleted: false
+      team1Score: null,
+      team2Score: null,
+      isCompleted: false,
+      date: matchDates[0], // Feb 25
+      time: '13:45'
     },
     {
       id: 'A-0-2',
@@ -34,90 +57,111 @@ const INITIAL_MATCHES = {
       team2: INITIAL_TEAMS[2], // Giacomo
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[2], // Feb 27
+      time: '13:45'
     },
     {
       id: 'A-0-3',
-      team1: INITIAL_TEAMS[0],
-      team2: INITIAL_TEAMS[3],
+      team1: INITIAL_TEAMS[0], // Manuel
+      team2: INITIAL_TEAMS[3], // Giovanni
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[4], // Feb 29
+      time: '13:45'
     },
     {
-      id: 'A-1-2',
-      team1: INITIAL_TEAMS[1],
-      team2: INITIAL_TEAMS[2],
+      id: 'A-0-4',
+      team1: INITIAL_TEAMS[1], // Matteo
+      team2: INITIAL_TEAMS[2], // Giacomo
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[6], // Mar 4
+      time: '13:45'
     },
     {
-      id: 'A-1-3',
-      team1: INITIAL_TEAMS[1],
-      team2: INITIAL_TEAMS[3],
+      id: 'A-0-5',
+      team1: INITIAL_TEAMS[1], // Matteo
+      team2: INITIAL_TEAMS[3], // Giovanni
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[8], // Mar 6
+      time: '13:45'
     },
     {
-      id: 'A-2-3',
-      team1: INITIAL_TEAMS[2],
-      team2: INITIAL_TEAMS[3],
+      id: 'A-0-6',
+      team1: INITIAL_TEAMS[2], // Giacomo
+      team2: INITIAL_TEAMS[3], // Giovanni
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[10], // Mar 8
+      time: '13:45'
     }
   ],
   B: [
-    // Explorer Group matches
     {
       id: 'B-0-1',
       team1: INITIAL_TEAMS[4], // Federico
       team2: INITIAL_TEAMS[5], // Davide
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[1], // Feb 26
+      time: '13:45'
     },
     {
       id: 'B-0-2',
-      team1: INITIAL_TEAMS[4],
-      team2: INITIAL_TEAMS[6],
+      team1: INITIAL_TEAMS[4], // Federico
+      team2: INITIAL_TEAMS[6], // Edoardo
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[3], // Feb 28
+      time: '13:45'
     },
     {
       id: 'B-0-3',
-      team1: INITIAL_TEAMS[4],
-      team2: INITIAL_TEAMS[7],
+      team1: INITIAL_TEAMS[4], // Federico
+      team2: INITIAL_TEAMS[7], // Daniele
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[5], // Mar 1
+      time: '13:45'
     },
     {
-      id: 'B-1-2',
-      team1: INITIAL_TEAMS[5],
-      team2: INITIAL_TEAMS[6],
+      id: 'B-0-4',
+      team1: INITIAL_TEAMS[5], // Davide
+      team2: INITIAL_TEAMS[6], // Edoardo
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[7], // Mar 5
+      time: '13:45'
     },
     {
-      id: 'B-1-3',
-      team1: INITIAL_TEAMS[5],
-      team2: INITIAL_TEAMS[7],
+      id: 'B-0-5',
+      team1: INITIAL_TEAMS[5], // Davide
+      team2: INITIAL_TEAMS[7], // Daniele
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[9], // Mar 7
+      time: '13:45'
     },
     {
-      id: 'B-2-3',
-      team1: INITIAL_TEAMS[6],
-      team2: INITIAL_TEAMS[7],
+      id: 'B-0-6',
+      team1: INITIAL_TEAMS[6], // Edoardo
+      team2: INITIAL_TEAMS[7], // Daniele
       team1Score: null,
       team2Score: null,
-      isCompleted: false
+      isCompleted: false,
+      date: matchDates[11], // Mar 11
+      time: '13:45'
     }
   ]
 };
@@ -401,10 +445,12 @@ export function useTournament() {
 
 export const sortTeams = (teams, matches) => {
   return [...teams].sort((a, b) => {
+    // Sort by points first
     if (b.points !== a.points) {
       return b.points - a.points;
     }
 
+    // If points are equal, check head-to-head
     const headToHead = matches.find(match => 
       (match.team1.id === a.id && match.team2.id === b.id) ||
       (match.team1.id === b.id && match.team2.id === a.id)
@@ -418,6 +464,7 @@ export const sortTeams = (teams, matches) => {
       }
     }
 
+    // If still tied, sort by correct answers
     return b.correctAnswers - a.correctAnswers;
   });
 }; 

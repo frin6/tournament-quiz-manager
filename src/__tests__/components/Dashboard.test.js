@@ -15,8 +15,26 @@ describe('Dashboard', () => {
       ]
     },
     matches: {
-      A: [{ id: 'A-0-1', team1Score: null, team2Score: null, isCompleted: false }],
-      B: [{ id: 'B-0-1', team1Score: null, team2Score: null, isCompleted: false }]
+      A: [{
+        id: 'A-0-1',
+        team1: { id: 1, name: 'Team A' },
+        team2: { id: 2, name: 'Team B' },
+        team1Score: null,
+        team2Score: null,
+        isCompleted: false,
+        date: '2025-02-25',
+        time: '13:45'
+      }],
+      B: [{
+        id: 'B-0-1',
+        team1: { id: 3, name: 'Team C' },
+        team2: { id: 4, name: 'Team D' },
+        team1Score: null,
+        team2Score: null,
+        isCompleted: false,
+        date: '2025-02-26',
+        time: '13:45'
+      }]
     },
     knockoutMatches: { semifinals: [], final: null },
     updateMatchScore: jest.fn(),
