@@ -30,7 +30,7 @@ const INITIAL_TEAMS = [
   { id: 3, name: "Giacomo", points: 0, correctAnswers: 0, wrongAnswers: 0, matchesPlayed: 0 },
   { id: 4, name: "Giovanni", points: 0, correctAnswers: 0, wrongAnswers: 0, matchesPlayed: 0 },
   // Explorer Group (B)
-  { id: 5, name: "Federico", points: 0, correctAnswers: 0, wrongAnswers: 0, matchesPlayed: 0 },
+  { id: 5, name: "Stefano", points: 0, correctAnswers: 0, wrongAnswers: 0, matchesPlayed: 0 },
   { id: 6, name: "Davide", points: 0, correctAnswers: 0, wrongAnswers: 0, matchesPlayed: 0 },
   { id: 7, name: "Edoardo", points: 0, correctAnswers: 0, wrongAnswers: 0, matchesPlayed: 0 },
   { id: 8, name: "Daniele", points: 0, correctAnswers: 0, wrongAnswers: 0, matchesPlayed: 0 },
@@ -105,7 +105,7 @@ const INITIAL_MATCHES = {
   B: [
     {
       id: 'B-0-1',
-      team1: INITIAL_TEAMS[4], // Federico
+      team1: INITIAL_TEAMS[4], // Stefano
       team2: INITIAL_TEAMS[5], // Davide
       team1Score: null,
       team2Score: null,
@@ -115,7 +115,7 @@ const INITIAL_MATCHES = {
     },
     {
       id: 'B-0-2',
-      team1: INITIAL_TEAMS[4], // Federico
+      team1: INITIAL_TEAMS[4], // Stefano
       team2: INITIAL_TEAMS[6], // Edoardo
       team1Score: null,
       team2Score: null,
@@ -125,7 +125,7 @@ const INITIAL_MATCHES = {
     },
     {
       id: 'B-0-3',
-      team1: INITIAL_TEAMS[4], // Federico
+      team1: INITIAL_TEAMS[4], // Stefano
       team2: INITIAL_TEAMS[7], // Daniele
       team1Score: null,
       team2Score: null,
