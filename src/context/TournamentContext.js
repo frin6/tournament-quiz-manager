@@ -53,7 +53,7 @@ const INITIAL_MATCHES = {
     },
     {
       id: 'A-0-2',
-      team1: INITIAL_TEAMS[0], // Manuel
+      team1: INITIAL_TEAMS[3], // Giovanni
       team2: INITIAL_TEAMS[2], // Giacomo
       team1Score: null,
       team2Score: null,
@@ -94,7 +94,7 @@ const INITIAL_MATCHES = {
     {
       id: 'A-0-6',
       team1: INITIAL_TEAMS[2], // Giacomo
-      team2: INITIAL_TEAMS[3], // Giovanni
+      team2: INITIAL_TEAMS[0], // Manuel
       team1Score: null,
       team2Score: null,
       isCompleted: false,
@@ -115,7 +115,7 @@ const INITIAL_MATCHES = {
     },
     {
       id: 'B-0-2',
-      team1: INITIAL_TEAMS[4], // Stefano
+      team1: INITIAL_TEAMS[7], // Daniele
       team2: INITIAL_TEAMS[6], // Edoardo
       team1Score: null,
       team2Score: null,
@@ -156,7 +156,7 @@ const INITIAL_MATCHES = {
     {
       id: 'B-0-6',
       team1: INITIAL_TEAMS[6], // Edoardo
-      team2: INITIAL_TEAMS[7], // Daniele
+      team2: INITIAL_TEAMS[4], // Stefano
       team1Score: null,
       team2Score: null,
       isCompleted: false,
