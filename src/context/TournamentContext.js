@@ -9,8 +9,7 @@ export const generateMatchDates = (startDate) => {
   let currentDate = startDate instanceof Date ? new Date(startDate) : new Date('2025-02-25');
 
   // Dates to skip (in addition to weekends)
-  const skipDates = ['2025-03-03', '2025-03-04'];
-
+  const skipDates = ['2025-03-03', '2025-03-04', '2025-03-05']
   while (dates.length < 12) { // 6 matches per group
     // Skip weekends and specific dates
     const dateString = currentDate.toISOString().split('T')[0];
@@ -48,7 +47,7 @@ const INITIAL_MATCHES = {
       team1Score: 1,
       team2Score: 1,
       isCompleted: true,
-      date: matchDates[0], // Feb 25
+      date: matchDates[0],
       time: '13:45'
     },
     {
@@ -58,7 +57,7 @@ const INITIAL_MATCHES = {
       team1Score: 0,
       team2Score: 3,
       isCompleted: true,
-      date: matchDates[2], // Feb 27
+      date: matchDates[2],
       time: '13:45'
     },
     {
@@ -68,7 +67,7 @@ const INITIAL_MATCHES = {
       team1Score: null,
       team2Score: null,
       isCompleted: false,
-      date: matchDates[4], // Feb 29
+      date: matchDates[4],
       time: '13:45'
     },
     {
@@ -78,7 +77,7 @@ const INITIAL_MATCHES = {
       team1Score: null,
       team2Score: null,
       isCompleted: false,
-      date: matchDates[6], // Mar 4
+      date: matchDates[6],
       time: '13:45'
     },
     {
@@ -88,7 +87,7 @@ const INITIAL_MATCHES = {
       team1Score: null,
       team2Score: null,
       isCompleted: false,
-      date: matchDates[8], // Mar 6
+      date: matchDates[8],
       time: '13:45'
     },
     {
@@ -98,7 +97,7 @@ const INITIAL_MATCHES = {
       team1Score: null,
       team2Score: null,
       isCompleted: false,
-      date: matchDates[10], // Mar 8
+      date: matchDates[10],
       time: '13:45'
     }
   ],
@@ -110,7 +109,7 @@ const INITIAL_MATCHES = {
       team1Score: 1,
       team2Score: 2,
       isCompleted: true,
-      date: matchDates[1], // Feb 26
+      date: matchDates[1],
       time: '13:45'
     },
     {
@@ -120,7 +119,7 @@ const INITIAL_MATCHES = {
       team1Score: 2,
       team2Score: 2,
       isCompleted: true,
-      date: matchDates[3], // Feb 28
+      date: matchDates[3],
       time: '13:45'
     },
     {
@@ -130,7 +129,7 @@ const INITIAL_MATCHES = {
       team1Score: null,
       team2Score: null,
       isCompleted: false,
-      date: matchDates[5], // Mar 1
+      date: matchDates[5],
       time: '13:45'
     },
     {
@@ -140,7 +139,7 @@ const INITIAL_MATCHES = {
       team1Score: null,
       team2Score: null,
       isCompleted: false,
-      date: matchDates[7], // Mar 5
+      date: matchDates[7],
       time: '13:45'
     },
     {
@@ -150,7 +149,7 @@ const INITIAL_MATCHES = {
       team1Score: null,
       team2Score: null,
       isCompleted: false,
-      date: matchDates[9], // Mar 7
+      date: matchDates[9], 
       time: '13:45'
     },
     {
@@ -160,7 +159,7 @@ const INITIAL_MATCHES = {
       team1Score: null,
       team2Score: null,
       isCompleted: false,
-      date: matchDates[11], // Mar 11
+      date: matchDates[11],
       time: '13:45'
     }
   ]
