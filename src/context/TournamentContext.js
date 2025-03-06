@@ -64,9 +64,9 @@ const INITIAL_MATCHES = {
       id: 'A-0-3',
       team1: INITIAL_TEAMS[0], // Manuel
       team2: INITIAL_TEAMS[3], // Giovanni
-      team1Score: null,
-      team2Score: null,
-      isCompleted: false,
+      team1Score: 3,
+      team2Score: 3,
+      isCompleted: true,
       date: matchDates[4],
       time: '13:45'
     },
