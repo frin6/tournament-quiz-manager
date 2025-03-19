@@ -94,9 +94,9 @@ const INITIAL_MATCHES = {
       id: 'A-0-6',
       team1: INITIAL_TEAMS[2], // Giacomo
       team2: INITIAL_TEAMS[0], // Manuel
-      team1Score: null,
-      team2Score: null,
-      isCompleted: false,
+      team1Score: 2,
+      team2Score: 2,
+      isCompleted: true,
       date: matchDates[10],
       time: '13:45'
     }
@@ -146,9 +146,9 @@ const INITIAL_MATCHES = {
       id: 'B-0-5',
       team1: INITIAL_TEAMS[5], // Davide
       team2: INITIAL_TEAMS[7], // Daniele
-      team1Score: null,
-      team2Score: null,
-      isCompleted: false,
+      team1Score: 0,
+      team2Score: 3,
+      isCompleted: true,
       date: matchDates[9], 
       time: '13:45'
     },
@@ -156,9 +156,9 @@ const INITIAL_MATCHES = {
       id: 'B-0-6',
       team1: INITIAL_TEAMS[6], // Edoardo
       team2: INITIAL_TEAMS[4], // Stefano
-      team1Score: null,
-      team2Score: null,
-      isCompleted: false,
+      team1Score: 1,
+      team2Score: 3,
+      isCompleted: ture,
       date: matchDates[11],
       time: '13:45'
     }
