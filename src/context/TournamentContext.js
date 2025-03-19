@@ -158,7 +158,7 @@ const INITIAL_MATCHES = {
       team2: INITIAL_TEAMS[4], // Stefano
       team1Score: 1,
       team2Score: 3,
-      isCompleted: ture,
+      isCompleted: true,
       date: matchDates[11],
       time: '13:45'
     }
