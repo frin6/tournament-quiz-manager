@@ -325,7 +325,8 @@ export function TournamentProvider({ children }) {
         team2: sortedGroupB[1],
         team1Score: null,
         team2Score: null,
-        isCompleted: false
+        isCompleted: false,
+        date: 'Mar 31' // Adding date for first semifinal
       },
       {
         id: 'semi2',
@@ -333,7 +334,8 @@ export function TournamentProvider({ children }) {
         team2: sortedGroupA[1],
         team1Score: null,
         team2Score: null,
-        isCompleted: false
+        isCompleted: false,
+        date: 'Apr 3' // Adding date for second semifinal
       }
     ];
 
@@ -357,7 +359,8 @@ export function TournamentProvider({ children }) {
               ...match,
               team1Score,
               team2Score,
-              isCompleted: true
+              isCompleted: true,
+              date: 'Mar 31' // Adding date for semifinals
             };
           }
           return match;
@@ -376,7 +379,8 @@ export function TournamentProvider({ children }) {
             team2: winners[1],
             team1Score: null,
             team2Score: null,
-            isCompleted: false
+            isCompleted: false,
+            date: 'Apr 8'
           };
 
           return {
